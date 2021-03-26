@@ -1,0 +1,37 @@
+VISUALFORCEPAGE:
+
+<apex:page Controller="CustomerController">
+        <apex:pageBlock title="INVOICE">
+          <apex:pageBlockSection title="Customer details">
+             <apex:outputText value="{!cust.Name}"/><br/>
+             <apex:outputText value="{!cust.Delivery_Address__c}"/><br/>
+             <apex:outputText value="{!cust.Phone__c}"/><br/>
+             </apex:pageBlockSection>
+           <apex:pageBlockSection title="Product details">
+             <apex:outputText value="{!cust.Product_cost__c}"/><br/>
+             <apex:outputText value="{!cust.Product_Name__c}"/><br/>
+             <apex:outputText value="{!cust.Delivery_cost__c}"/><br/>
+             </apex:pageBlockSection>
+           <apex:pageBlockSection title="Amount">
+              <apex:outputText value="{!cust.Total_cost__c}"/><br/> 
+           </apex:pageBlockSection>
+        </apex:pageBlock>
+</apex:page>
+
+CLASS:
+
+global with sharing class CustomerController {
+    
+    public Customer__c cust {get;set;}
+    
+    public CustomerController(){
+        cust = [Select Name,
+                Delivery_Address__c,
+                Phone__c,
+                Product_cost__c,
+                Product_Name__c,
+                Delivery_cost__c,
+                Total_cost__c
+                from Customer__c LIMIT 1];
+    }
+}
